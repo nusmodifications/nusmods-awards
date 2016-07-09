@@ -24,7 +24,9 @@ ReactDOM.render(
       <Route path="/users" component={UsersContainer}>
         <Route path=":userId" component={UserSection}/>
       </Route>
-      <Route path=":faculty" component={FacultyPage}/>
+      <Route path="/business" component={FacultyPage}/>
+      <Route path="/computing" component={FacultyPage}/>
+      <Route path="/engineering" component={FacultyPage}/>
       <Route path="*" component={NotFoundPage}/>
     </Route>
   </Router>,

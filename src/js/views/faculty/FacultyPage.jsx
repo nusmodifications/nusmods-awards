@@ -10,9 +10,13 @@ export default class FacultyPage extends Component {
     return this.props.location.query.page ? parseInt(this.props.location.query.page) : 1;
   }
 
+  getFaculty() {
+    return this.props.location.pathname;
+  }
+
   changePage(difference) {
     this.context.router.push({
-      pathname: `/${this.props.params.faculty}`,
+      pathname: `/${this.getFaculty()}`,
       query: _.assign({}, this.props.location.query, {
           page: this.getCurrentPage() + difference
         })
@@ -23,7 +27,7 @@ export default class FacultyPage extends Component {
     e.preventDefault();
     const search = e.target.elements.search.value
     this.context.router.push({
-      pathname: `/${this.props.params.faculty}`,
+      pathname: `/${this.getFaculty()}`,
       query: {
         page: 1,
         search
@@ -33,7 +37,7 @@ export default class FacultyPage extends Component {
 
   render() {
     const currentPage = this.getCurrentPage();
-    const faculty = _.capitalize(this.props.params.faculty);
+    const faculty = _.capitalize(this.getFaculty());
     const search = _.get(this.props.location, 'query.search');
     const filteredStudents = combinedData.filter((student) => {
                               if (student.Faculty !== faculty) {
