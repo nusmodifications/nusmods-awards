@@ -7,6 +7,7 @@ import AppContainer from 'views/AppContainer';
 import NotFoundPage from 'views/NotFoundPage';
 
 import HomePage from 'views/home/HomePage';
+import FacultyPage from 'views/faculty/FacultyPage';
 import UsersContainer from 'views/users/UsersContainer';
 import UserSection from 'views/users/UserSection';
 
@@ -23,6 +24,7 @@ ReactDOM.render(
       <Route path="/users" component={UsersContainer}>
         <Route path=":userId" component={UserSection}/>
       </Route>
+      <Route path=":faculty" component={FacultyPage}/>
       <Route path="*" component={NotFoundPage}/>
     </Route>
   </Router>,

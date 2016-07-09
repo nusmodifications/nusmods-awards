@@ -12,6 +12,7 @@ export default class AppContainer extends Component {
                 <Link className="nav-item nav-link active" to="/">
                   <img className="logo" src={require('img/nusmods-logo-gradient.png')}/>
                   <span className="site-title">&nbsp;&nbsp; Hall of Fame</span>
+                  <div><em>Awards Search</em></div>
                 </Link>
               </div>
               <div className="nav navbar-nav pull-xs-right">

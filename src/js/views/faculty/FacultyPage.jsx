@@ -1,17 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import Pagination from 'components/Pagination';
+import _ from 'lodash';
 
 const combinedData = require('json!data/Combined.json').data;
 const PAGE_SIZE = 10;
 
-export default class HomePage extends Component {
+export default class FacultyPage extends Component {
   getCurrentPage() {
     return this.props.location.query.page ? parseInt(this.props.location.query.page) : 1;
   }
 
   changePage(difference) {
     this.context.router.push({
-      pathname: '/',
+      pathname: `/${this.props.params.faculty}`,
       query: _.assign({}, this.props.location.query, {
           page: this.getCurrentPage() + difference
         })
@@ -22,7 +23,7 @@ export default class HomePage extends Component {
     e.preventDefault();
     const search = e.target.elements.search.value
     this.context.router.push({
-      pathname: '/',
+      pathname: `/${this.props.params.faculty}`,
       query: {
         page: 1,
         search
@@ -32,46 +33,54 @@ export default class HomePage extends Component {
 
   render() {
     const currentPage = this.getCurrentPage();
+    const faculty = _.capitalize(this.props.params.faculty);
     const search = _.get(this.props.location, 'query.search');
     const filteredStudents = combinedData.filter((student) => {
+                              if (student.Faculty !== faculty) {
+                                return false;
+                              }
                               if (!search || (search && search.length <= 2)) {
                                 return true;
                               }
                               return student.Name.toLowerCase().indexOf(search.toLowerCase()) > -1;
                             });
-    const pagination = <Pagination
-                        currentPage={currentPage}
-                        pageSize={PAGE_SIZE}
-                        totalSize={filteredStudents.length}
-                        onPrevClick={this.changePage.bind(this, -1)}
-                        onNextClick={this.changePage.bind(this, 1)}/>;
 
     return (
       <div className="main-content">
         <div className="container">
-          <form onSubmit={this.search.bind(this)}>
-            <div className="form-group">
-              <div className="input-group">
-                    <input id="search" className="form-control form-control-lg"
+          <div className="row">
+            <div className="col-md-8">
+              <h3>{faculty}</h3>
+            </div>
+            <div className="col-md-4">
+              <form onSubmit={this.search.bind(this)}>
+                <div className="form-group">
+                  <div className="input-group">
+                    <input id="search" className="form-control" key={faculty}
                       defaultValue={search}
-                      placeholder="Search for someone..."/>
+                      placeholder="Search"/>
                     <span className="input-group-btn">
-                      <button className="btn btn-lg btn-primary" type="submit">
+                      <button className="btn btn-primary" type="submit">
                         <i className="fa fa-search"/>
                       </button>
                     </span>
                   </div>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-        <br/>
-        <div className="container">
+          </div>
+          <br/>
           <div className="row">
             <div className="col-md-6">
               <p>{filteredStudents.length} results found</p>
             </div>
             <div className="col-md-6 text-xs-right">
-              {pagination}
+              <Pagination
+                currentPage={currentPage}
+                pageSize={PAGE_SIZE}
+                totalSize={filteredStudents.length}
+                onPrevClick={this.changePage.bind(this, -1)}
+                onNextClick={this.changePage.bind(this, 1)}/>
             </div>
           </div>
           <br/>
@@ -80,8 +89,11 @@ export default class HomePage extends Component {
               <ul className="list-group">
                 <li className="list-group-item student-header-row">
                   <div className="row">
-                    <div className="col-md-3">Name</div>
-                    <div className="col-md-3">Faculty</div>
+                    <div className="col-md-6">
+                      <span className="student-name">
+                        <strong>Name</strong>
+                      </span>
+                    </div>
                     <div className="col-md-4">Awards</div>
                   </div>
                 </li>
@@ -90,9 +102,10 @@ export default class HomePage extends Component {
                   .map((student, i) => {
                     return (
                       <li className={`list-group-item student-row ${student.Faculty}`} key={i}>
-                        <div className="row">
-                          <div className="col-md-3">{student.Name}</div>
-                          <div className="col-md-3">{student.Faculty}</div>
+                        <div className="row" key={i}>
+                          <div className="col-md-6">
+                            <span className="student-name">{student.Name}</span>
+                          </div>
                           <div className="col-md-4">{student.DeansList.map((sem) => {
                             return (
                               <span key={sem}>
@@ -113,7 +126,12 @@ export default class HomePage extends Component {
           </div>
           <br/>
           <div className="text-sm-center">
-            {pagination}
+            <Pagination
+              currentPage={currentPage}
+              pageSize={PAGE_SIZE}
+              totalSize={filteredStudents.length}
+              onPrevClick={this.changePage.bind(this, -1)}
+              onNextClick={this.changePage.bind(this, 1)}/>
           </div>
         </div>
       </div>
@@ -121,6 +139,6 @@ export default class HomePage extends Component {
   }
 }
 
-HomePage.contextTypes = {
+FacultyPage.contextTypes = {
   router: PropTypes.object
 };

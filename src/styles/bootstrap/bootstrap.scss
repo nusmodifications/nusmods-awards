@@ -61,6 +61,13 @@
   border-right-width: 0;
 }
 
+$radius: 50px;
+
 .btn {
-  border-radius: 50px;
+  border-radius: $radius;
+}
+
+.input-group .form-control:first-child {
+  border-top-left-radius: $radius;
+  border-bottom-left-radius: $radius;
 }

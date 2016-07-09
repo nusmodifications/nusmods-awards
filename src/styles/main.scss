@@ -31,7 +31,7 @@ $font-weight-bold: 700;
 }
 
 .main-content {
-  padding: 50px;
+  margin-bottom: 50px;
 }
 
 .app-title {
@@ -40,14 +40,9 @@ $font-weight-bold: 700;
   text-transform: uppercase;
 }
 
-.student-row {
-  background-color: transparent;
-  // border-radius: 3px;
-  // color: #000;
-  // padding: 10px;
-}
-
-.student-name {
+.student-header-row {
+  color: #fff;
+  background-color: #333;
   font-weight: $font-weight-bold;
 }
 

@@ -5,14 +5,14 @@ const DEFAULT_PAGE_SIZE = 10;
 export default class Pagination extends Component {
   render() {
     const pageSize = this.props.pageSize || DEFAULT_PAGE_SIZE;
-    const totalPages = Math.round(this.props.totalSize / pageSize + 0.5);
+    const totalPages = Math.ceil(this.props.totalSize / pageSize);
     const currentStart = this.props.totalSize > 0 ? 1 + ((this.props.currentPage - 1) * this.props.pageSize) : this.props.totalSize;
     let currentEnd = Math.min(this.props.currentPage * this.props.pageSize, this.props.totalSize);
 
     if (this.props.currentPageSize) {
       currentEnd = Math.min((this.props.currentPage - 1) * this.props.pageSize + this.props.currentPageSize, this.props.totalSize);
     }
-
+    console.log(this.props.currentPage, totalPages);
     return (
       <div className="btn-group" role="group" aria-label="Pagination">
         <button type="button" className="btn btn-primary-outline"
