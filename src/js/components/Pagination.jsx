@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -15,19 +16,21 @@ export default class Pagination extends Component {
     console.log(this.props.currentPage, totalPages);
     return (
       <div className="btn-group" role="group" aria-label="Pagination">
-        <button type="button" className="btn btn-primary-outline"
-          onClick={this.props.onPrevClick}
-          disabled={this.props.currentPage === 1 || totalPages === 0}>
+        <a className={classnames('btn btn-sm btn-secondary-outline', {
+          disabled: this.props.currentPage === 1 || totalPages === 0
+          })}
+          onClick={this.props.onPrevClick}>
           <i className="fa fa-chevron-left"/>
-        </button>
-        <button className="btn btn-primary-outline" disabled={true}>
-          {currentStart} - {currentEnd} of {this.props.totalSize}
-        </button>
-        <button type="button" className="btn btn-primary-outline"
-          onClick={this.props.onNextClick}
-          disabled={this.props.currentPage === totalPages || totalPages === 0}>
+        </a>
+        <a className="btn btn-sm btn-secondary-outline disabled">
+          <span className="text-muted">{currentStart} - {currentEnd} of {this.props.totalSize}</span>
+        </a>
+        <a className={classnames('btn btn-sm btn-secondary-outline', {
+          disabled: this.props.currentPage === totalPages || totalPages === 0
+          })}
+          onClick={this.props.onNextClick}>
           <i className="fa fa-chevron-right"/>
-        </button>
+        </a>
       </div>
     )
   }
