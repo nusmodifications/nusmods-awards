@@ -8,8 +8,7 @@ import NotFoundPage from 'views/NotFoundPage';
 
 import HomePage from 'views/home/HomePage';
 import FacultyPage from 'views/faculty/FacultyPage';
-import UsersContainer from 'views/users/UsersContainer';
-import UserSection from 'views/users/UserSection';
+import StudentPage from 'views/students/StudentPage';
 
 require('main.scss');
 
@@ -21,12 +20,10 @@ ReactDOM.render(
   <Router history={history}>
     <Route path="/" component={AppContainer}>
       <IndexRoute component={HomePage}/>
-      <Route path="/users" component={UsersContainer}>
-        <Route path=":userId" component={UserSection}/>
-      </Route>
       <Route path="/business" component={FacultyPage}/>
       <Route path="/computing" component={FacultyPage}/>
       <Route path="/engineering" component={FacultyPage}/>
+      <Route path="/s/:studentName" component={StudentPage}/>
       <Route path="*" component={NotFoundPage}/>
     </Route>
   </Router>,

@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import _ from 'lodash';
+
 import Pagination from 'components/Pagination';
 
 const combinedData = require('json!data/Combined.json').data;
@@ -101,7 +104,9 @@ export default class HomePage extends Component {
                             );
                           })}</div>
                           <div className="col-md-2 text-xs-right">
-                            <button className="btn btn-sm btn-primary">View</button>
+                            <Link className="btn btn-sm btn-primary" to={`/s/${encodeURIComponent(student.Name)}`}>
+                              View
+                            </Link>
                           </div>
                         </div>
                       </li>
