@@ -115,7 +115,7 @@ export default class FacultyPage extends Component {
                           <div className="col-md-4">{student.DeansList.map((sem) => {
                             return (
                               <span key={sem}>
-                                <span className="label label-default">DL {sem}</span>{' '}
+                                <span className="label label-default">{sem}</span>{' '}
                               </span>
                             );
                           })}</div>
