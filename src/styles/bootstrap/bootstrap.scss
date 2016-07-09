@@ -55,3 +55,12 @@
 .container {
   max-width: map-get($grid-breakpoints, 'md');
 }
+
+.list-group-item {
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.btn {
+  border-radius: 50px;
+}

@@ -1,12 +1,17 @@
 // Options
 $enable-flex: true;
 
+// Colors
+
+$brand-primary: #ff5138;
+
 // Body
-$body-bg: #38414e;
-$body-color: #fff;
+// $body-bg: #252830;
+// $body-color: #fff;
 
 // Typography
 //
 // Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-sans-serif: 'Muli', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$headings-font-weight: 400;

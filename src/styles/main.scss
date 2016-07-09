@@ -1,1 +1,64 @@
 @import 'bootstrap/bootstrap';
+
+$orange: #ffc107;
+$turqoise: #59d4d9;
+$lime-green: #66b92e;
+
+$theme-engineering: $orange;
+$theme-computing: $lime-green;
+$theme-business: $turqoise;
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+.nav-container {
+  padding: 50px 0;
+}
+
+.banner {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 40px;
+}
+
+.logo {
+  margin-top: -5px;
+  max-width: 120px;
+}
+
+.site-title {
+  color: #aaa;
+}
+
+.main-content {
+  padding: 50px;
+}
+
+.app-title {
+  font-weight: $font-weight-bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.student-row {
+  background-color: transparent;
+  // border-radius: 3px;
+  // color: #000;
+  // padding: 10px;
+}
+
+.student-name {
+  font-weight: $font-weight-bold;
+}
+
+.business {
+  background-color: $theme-business;
+}
+
+.engineering {
+  background-color: $theme-engineering;
+}
+
+.computing {
+  background-color: $theme-computing;
+}

@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react';
+import Pagination from 'components/Pagination';
 
 const combinedData = require('json!data/Combined.json').data;
-const PAGE_SIZE = 30;
+const PAGE_SIZE = 10;
 
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       search: '',
-      currentPage: 0
+      currentPage: 1
     };
   }
 
@@ -19,7 +20,6 @@ export default class HomePage extends Component {
   }
 
   render() {
-    console.log(combinedData);
     const filteredStudents = combinedData.filter((student) => {
                               if (this.state.search.length <= 2) {
                                 return true;
@@ -29,56 +29,79 @@ export default class HomePage extends Component {
 
     return (
       <div>
-        <h1>Hall of Fame</h1>
-        <hr/>
-        <form>
-          <div className="form-group">
-            <input className="form-control" value={this.state.search} onChange={(event) => {
-              this.setState({
-                currentPage: 0,
-                search: event.target.value
-              });
-            }}/>
-          </div>
-        </form>
-        <div>
-          <a onClick={this.changePage.bind(this, -1)}>Prev</a>
-          &nbsp;
-          <span>{this.state.currentPage * PAGE_SIZE + 1} - {(this.state.currentPage + 1) * PAGE_SIZE} of {filteredStudents.length}</span>
-          &nbsp;
-          <a onClick={this.changePage.bind(this, 1)}>Next</a>
+        <div className="container">
+          <form>
+            <div className="form-group">
+              <input className="form-control form-control-lg"
+                value={this.state.search}
+                placeholder="Search for someone..."
+                onChange={(event) => {
+                this.setState({
+                  currentPage: 1,
+                  search: event.target.value
+                });
+              }}/>
+            </div>
+          </form>
         </div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Faculty</th>
-              <th>Times</th>
-              <th/>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredStudents
-              .slice(this.state.currentPage * PAGE_SIZE, (this.state.currentPage + 1) * PAGE_SIZE)
-              .map((student, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{student.Name}</td>
-                    <td>{student.Faculty}</td>
-                    <td>{student.DeansList.length}</td>
-                    <td>{student.DeansList.map((sem) => {
+        <div className="main-content">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <p>{filteredStudents.length} results found</p>
+              </div>
+              <div className="col-md-6 text-xs-right">
+                <Pagination
+                  currentPage={this.state.currentPage}
+                  pageSize={PAGE_SIZE}
+                  totalSize={filteredStudents.length}
+                  onPrevClick={this.changePage.bind(this, -1)}
+                  onNextClick={this.changePage.bind(this, 1)}/>
+              </div>
+            </div>
+            <br/>
+            <div className="row">
+              <div className="col-md-12">
+                <ul className="list-group">
+                  {filteredStudents
+                    .slice((this.state.currentPage - 1) * PAGE_SIZE, this.state.currentPage * PAGE_SIZE)
+                    .map((student, i) => {
                       return (
-                        <span>
-                          <span className="label label-success" key={sem}>{sem}</span>{' '}
-                        </span>
+                        <li className={`list-group-item student-row ${student.Faculty}`} key={i}>
+                          <div className="row" key={i}>
+                            <div className="col-md-3">
+                              <span className="student-name">{student.Name}</span>
+                            </div>
+                            <div className="col-md-3">{student.Faculty}</div>
+                            <div className="col-md-4">{student.DeansList.map((sem) => {
+                              return (
+                                <span>
+                                  <span className="label label-primary" key={sem}>{sem}</span>{' '}
+                                </span>
+                              );
+                            })}</div>
+                            <div className="col-md-2 text-xs-right">
+                              <button className="btn btn-sm btn-primary">View</button>
+                            </div>
+                          </div>
+                        </li>
                       );
-                    })}</td>
-                  </tr>
-                );
-              })}
-            {!filteredStudents.length ? <tr><td colspan={999} className="text-center">No results found</td></tr> : null}
-          </tbody>
-        </table>
+                    })}
+                  {!filteredStudents.length ? <li className="list-group-item text-center">No results found</li> : null}
+                </ul>
+              </div>
+            </div>
+            <br/>
+            <div className="text-sm-center">
+              <Pagination
+                currentPage={this.state.currentPage}
+                pageSize={PAGE_SIZE}
+                totalSize={filteredStudents.length}
+                onPrevClick={this.changePage.bind(this, -1)}
+                onNextClick={this.changePage.bind(this, 1)}/>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

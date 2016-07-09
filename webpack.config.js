@@ -10,6 +10,7 @@ const PATHS = {
   app: path.join(__dirname, SRC),
   scripts: path.join(__dirname, SRC, 'js'),
   styles: path.join(__dirname, SRC, 'styles'),
+  images: path.join(__dirname, SRC, 'img'),
   build: path.join(__dirname, BUILD)
 };
 
@@ -52,6 +53,11 @@ const common = {
         // that will most likely result in an error.
         include: PATHS.scripts
       },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'file?name=[path][name].[hash].[ext]',
+        include: PATHS.images
+      }
     ]
   },
   devServer: parts.devServer
