@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 
 import Pagination from 'components/Pagination';
-import AwardLabel from 'components/AwardLabel';
 
 import nameMatcher from 'utils/nameMatcher';
 
