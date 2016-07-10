@@ -151,7 +151,7 @@ export default class FacultyPage extends Component {
                           </div>
                           <div className="col-md-2 col-xs-4 text-xs-right">
                             <Link className="btn btn-sm btn-primary"
-                              to={`/s/${encodeURIComponent(student.Name)}`}>
+                              to={`/s/${encodeURIComponent(student.Name.replace(/ /g, '_'))}`}>
                               View
                             </Link>
                           </div>

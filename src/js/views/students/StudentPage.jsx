@@ -5,7 +5,7 @@ const combinedData = require('json!data/Aggregated.json').data;
 
 export default class StudentPage extends Component {
   render() {
-    const studentName = decodeURIComponent(this.props.params.studentName);
+    const studentName = decodeURIComponent(this.props.params.studentName.replace(/_/g, ' '));
     const studentRecords = combinedData.filter((student) => student.Name === studentName);
 
     return (
