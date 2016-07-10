@@ -16,8 +16,12 @@ const history = useRouterHistory(createHistory)({
   basename: '/'
 });
 
+function routeChange() {
+  document.body.scrollTop = 0;
+}
+
 ReactDOM.render(
-  <Router history={history}>
+  <Router history={history} onUpdate={routeChange}>
     <Route path="/" component={AppContainer}>
       <IndexRoute component={HomePage}/>
       <Route path="/business" component={FacultyPage}/>
