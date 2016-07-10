@@ -124,6 +124,7 @@ export default class HomePage extends Component {
                 {filteredStudents
                   .slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
                   .map((student, i) => {
+                    const awardsTypeCount = _.countBy(student.Awards, 'Type');
                     return (
                       <li className={`list-group-item student-row ${student.Faculty}`} key={i}>
                         <div className="row">
@@ -133,13 +134,17 @@ export default class HomePage extends Component {
                               <div className="col-md-4">
                                 <span className="text-muted">{student.Faculty}</span>
                               </div>
-                              <div className="col-md-4">{student.Awards.map((award, i) => {
-                                return (
-                                  <span key={i}>
-                                    <AwardLabel award={award}/>{' '}
-                                  </span>
-                                );
-                              })}</div>
+                              <div className="col-md-4">
+                                <ul className="list-unstyled">
+                                  {Object.keys(awardsTypeCount).map((type, i) => {
+                                    return (
+                                      <li key={i}>
+                                        <small>{type}s - {awardsTypeCount[type]}</small>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
                             </div>
                           </div>
                           <div className="col-md-2 col-xs-4 text-xs-right">
