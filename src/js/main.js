@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
 import { createHistory } from 'history';
+import ReactGA from 'react-ga';
 
 import AppContainer from 'views/AppContainer';
 import NotFoundPage from 'views/NotFoundPage';
@@ -16,8 +17,10 @@ const history = useRouterHistory(createHistory)({
   basename: '/'
 });
 
+ReactGA.initialize('UA-33503218-5');
 function routeChange() {
   document.body.scrollTop = 0;
+  ReactGA.pageview(window.location.pathname);
 }
 
 ReactDOM.render(
