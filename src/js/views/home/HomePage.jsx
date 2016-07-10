@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import Pagination from 'components/Pagination';
 
-const combinedData = require('json!data/Combined.json').data;
+const combinedData = require('json!data/Aggregated.json').data;
 const PAGE_SIZE = 10;
 
 export default class HomePage extends Component {
@@ -37,7 +37,7 @@ export default class HomePage extends Component {
     const currentPage = this.getCurrentPage();
     const search = _.get(this.props.location, 'query.search');
     const filteredStudents = combinedData.filter((student) => {
-                              if (!search || (search && search.length <= 2)) {
+                              if (!search || (search && search.length <= 1)) {
                                 return true;
                               }
                               return student.Name.toLowerCase().indexOf(search.toLowerCase()) > -1;
@@ -96,10 +96,10 @@ export default class HomePage extends Component {
                         <div className="row">
                           <div className="col-md-3">{student.Name}</div>
                           <div className="col-md-3">{student.Faculty}</div>
-                          <div className="col-md-4">{student.DeansList.map((sem) => {
+                          <div className="col-md-4">{student.Awards.map((award, i) => {
                             return (
-                              <span key={sem}>
-                                <span className="label label-default">{sem}</span>{' '}
+                              <span key={i}>
+                                <span className="label label-default">{award.Type} {award.AcadYear} Sem {award.Sem}</span>{' '}
                               </span>
                             );
                           })}</div>

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const combinedData = require('json!data/Combined.json').data;
+const combinedData = require('json!data/Aggregated.json').data;
 
 export default class StudentPage extends Component {
   render() {
@@ -19,17 +19,39 @@ export default class StudentPage extends Component {
           </div>
           <div className="row">
             {studentRecords.map((studentRecord) => {
-              return studentRecord.DeansList.map((sem) => {
+              return studentRecord.Awards.map((award, i) => {
+                const facultyLink = (
+                  <Link className={studentRecord.Faculty.toLowerCase()}
+                    to={`/${studentRecord.Faculty.toLowerCase()}`}>
+                    {studentRecord.Faculty}
+                  </Link>
+                );
+
                 return (
-                  <div className="col-md-6">
-                    <div className="card card-block" key={sem}>
-                      <h4 className="card-title">
-                        <Link className={studentRecord.Faculty.toLowerCase()}
-                          to={`/${studentRecord.Faculty.toLowerCase()}`}>
-                          {studentRecord.Faculty}
-                        </Link>
-                      </h4>
-                      <p className="card-text">Dean's List in {sem}</p>
+                  <div className="col-md-6" key={i}>
+                    <div className="card card-block">
+                      {award.Type === 'Dean\'s List Award' ?
+                        <div>
+                          <h4 className="card-title">{award.Type}</h4>
+                          <p className="card-text">{award.AcadYear} Sem {award.Sem} &middot; {facultyLink}</p>
+                        </div> : null
+                      }
+                      {award.Type === 'Faculty Award' ?
+                        <div>
+                          <h4 className="card-title">{award.AwardName}</h4>
+                          <p className="card-text">{award.AcadYear} &middot; {facultyLink}</p>
+                        </div> : null
+                      }
+                      {award.Type === 'Commencement Award' ?
+                        <div>
+                          <h4 className="card-title">{award.AwardName}</h4>
+                          <p className="card-text">{award.AcadYear} &middot; {facultyLink}</p>
+                          <p className="card-text">
+                            <small className="text-muted">{award.AwardDesc}</small>
+                          </p>
+                        </div> : null
+                      }
+
                     </div>
                   </div>
                 );
