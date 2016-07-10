@@ -11,6 +11,13 @@ const combinedData = require('json!data/Aggregated.json').data;
 const PAGE_SIZE = 10;
 
 export default class FacultyPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sort: 'awards'
+    };
+  }
+
   getCurrentPage() {
     return this.props.location.query.page ? parseInt(this.props.location.query.page) : 1;
   }
@@ -28,9 +35,16 @@ export default class FacultyPage extends Component {
     });
   }
 
-  search(e) {
-    e.preventDefault();
-    const search = e.target.elements.search.value
+  sort(key, event) {
+    event.preventDefault();
+    this.setState({
+      sort: key
+    });
+  }
+
+  search(event) {
+    event.preventDefault();
+    const search = event.target.elements.search.value
     this.context.router.push({
       pathname: `/${this.getFaculty()}`,
       query: {
@@ -44,7 +58,7 @@ export default class FacultyPage extends Component {
     const currentPage = this.getCurrentPage();
     const faculty = _.capitalize(this.getFaculty());
     const search = _.get(this.props.location, 'query.search');
-    const filteredStudents = combinedData.filter((student) => {
+    let filteredStudents = combinedData.filter((student) => {
                               if (student.Faculty !== faculty) {
                                 return false;
                               }
@@ -53,6 +67,12 @@ export default class FacultyPage extends Component {
                               }
                               return nameMatcher(student.Name, search);
                             });
+
+    if (this.state.sort === 'name') {
+      filteredStudents = _.sortBy(filteredStudents, (o) => o.name);
+    } else if (this.state.sort === 'awards') {
+      filteredStudents = _.sortBy(filteredStudents, (o) => -o.Awards.length);
+    }
 
     return (
       <div className="main-content">
@@ -101,8 +121,12 @@ export default class FacultyPage extends Component {
                   <div className="row">
                     <div className="col-md-10 col-xs-8">
                       <div className="row">
-                        <div className="col-md-6">Name</div>
-                        <div className="col-md-4">Awards</div>
+                        <div className="col-md-6">
+                          <a href onClick={this.sort.bind(this, 'name')}>Name</a>
+                        </div>
+                        <div className="col-md-4">
+                          <a href onClick={this.sort.bind(this, 'awards')}>Awards</a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -126,7 +150,8 @@ export default class FacultyPage extends Component {
                             </div>
                           </div>
                           <div className="col-md-2 col-xs-4 text-xs-right">
-                            <Link className="btn btn-sm btn-primary" to={`/s/${encodeURIComponent(student.Name)}`}>
+                            <Link className="btn btn-sm btn-primary"
+                              to={`/s/${encodeURIComponent(student.Name)}`}>
                               View
                             </Link>
                           </div>

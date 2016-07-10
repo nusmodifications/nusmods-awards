@@ -11,6 +11,13 @@ const combinedData = require('json!data/Aggregated.json').data;
 const PAGE_SIZE = 10;
 
 export default class HomePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sort: 'name'
+    };
+  }
+
   getCurrentPage() {
     return this.props.location.query.page ? parseInt(this.props.location.query.page) : 1;
   }
@@ -21,6 +28,13 @@ export default class HomePage extends Component {
       query: _.assign({}, this.props.location.query, {
           page: this.getCurrentPage() + difference
         })
+    });
+  }
+
+  sort(key, event) {
+    event.preventDefault();
+    this.setState({
+      sort: key
     });
   }
 
@@ -39,12 +53,20 @@ export default class HomePage extends Component {
   render() {
     const currentPage = this.getCurrentPage();
     const search = _.get(this.props.location, 'query.search');
-    const filteredStudents = combinedData.filter((student) => {
-                              if (!search || (search && search.length <= 1)) {
-                                return true;
-                              }
-                              return nameMatcher(student.Name, search);
-                            });
+    let filteredStudents = combinedData
+                              .filter((student) => {
+                                if (!search || (search && search.length <= 1)) {
+                                  return true;
+                                }
+                                return nameMatcher(student.Name, search);
+                              })
+
+    if (this.state.sort === 'name') {
+      filteredStudents = _.sortBy(filteredStudents, (o) => o.name);
+    } else if (this.state.sort === 'awards') {
+      filteredStudents = _.sortBy(filteredStudents, (o) => -o.Awards.length);
+    }
+
     const pagination = <Pagination
                         currentPage={currentPage}
                         pageSize={PAGE_SIZE}
@@ -88,9 +110,13 @@ export default class HomePage extends Component {
                   <div className="row">
                     <div className="col-md-10 col-xs-8">
                       <div className="row">
-                        <div className="col-md-4">Name</div>
+                        <div className="col-md-4">
+                          <a href onClick={this.sort.bind(this, 'name')}>Name</a>
+                        </div>
                         <div className="col-md-4">Faculty</div>
-                        <div className="col-md-4">Awards</div>
+                        <div className="col-md-4">
+                          <a href onClick={this.sort.bind(this, 'awards')}>Awards</a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -117,7 +143,8 @@ export default class HomePage extends Component {
                             </div>
                           </div>
                           <div className="col-md-2 col-xs-4 text-xs-right">
-                            <Link className="btn btn-sm btn-primary" to={`/s/${encodeURIComponent(student.Name)}`}>
+                            <Link className="btn btn-sm btn-primary"
+                              to={`/s/${encodeURIComponent(student.Name)}`}>
                               View
                             </Link>
                           </div>
