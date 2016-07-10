@@ -5,6 +5,8 @@ import _ from 'lodash';
 import Pagination from 'components/Pagination';
 import AwardLabel from 'components/AwardLabel';
 
+import nameMatcher from 'utils/nameMatcher';
+
 const combinedData = require('json!data/Aggregated.json').data;
 const PAGE_SIZE = 10;
 
@@ -41,7 +43,7 @@ export default class HomePage extends Component {
                               if (!search || (search && search.length <= 1)) {
                                 return true;
                               }
-                              return student.Name.toLowerCase().indexOf(search.toLowerCase()) > -1;
+                              return nameMatcher(student.Name, search);
                             });
     const pagination = <Pagination
                         currentPage={currentPage}
