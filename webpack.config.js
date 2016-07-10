@@ -27,7 +27,15 @@ const common = {
     extensions: ['', '.js', '.jsx']
   },
   entry: {
-    app: ['main']
+    app: ['main'],
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router',
+      'react-ga',
+      'classnames',
+      'lodash'
+    ],
   },
   output: {
     path: PATHS.build,
@@ -84,7 +92,7 @@ switch (process.env.npm_lifecycle_event) {
       parts.setFreeVariable('process.env.NODE_ENV', 'production'),
       parts.extractBundle({
         name: 'vendor',
-        entries: Object.keys(pkg.dependencies)
+        entries: common.entry.vendor
       }),
       parts.minify(),
       parts.extractCSS(PATHS.styles)
