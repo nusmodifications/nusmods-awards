@@ -43,7 +43,8 @@ const common = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src/index.html'),
+      template: path.join(__dirname, SRC, 'index.html'),
+      favicon: path.join(__dirname, SRC, 'favicon.ico'),
       cache: true
     })
   ],
