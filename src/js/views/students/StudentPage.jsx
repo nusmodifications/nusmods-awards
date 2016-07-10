@@ -58,8 +58,20 @@ export default class StudentPage extends Component {
               });
             })}
           </div>
+          <hr/>
+          <div>
+            <button className="btn btn-primary" onClick={() => {
+              this.context.router.push({
+                pathname: `/${studentRecords[0].Faculty.toLowerCase()}`
+              });
+            }}>Back</button>
+          </div>
         </div>
       </div>
     )
   }
 }
+
+StudentPage.contextTypes = {
+  router: PropTypes.object
+};
