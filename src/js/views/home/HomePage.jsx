@@ -86,9 +86,13 @@ export default class HomePage extends Component {
               <ul className="list-group">
                 <li className="list-group-item student-header-row hidden-sm-down">
                   <div className="row">
-                    <div className="col-md-3">Name</div>
-                    <div className="col-md-3">Faculty</div>
-                    <div className="col-md-4">Awards</div>
+                    <div className="col-md-10 col-xs-8">
+                      <div className="row">
+                        <div className="col-md-4">Name</div>
+                        <div className="col-md-4">Faculty</div>
+                        <div className="col-md-4">Awards</div>
+                      </div>
+                    </div>
                   </div>
                 </li>
                 {filteredStudents

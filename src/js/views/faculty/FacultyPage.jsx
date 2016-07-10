@@ -99,12 +99,12 @@ export default class FacultyPage extends Component {
               <ul className="list-group">
                 <li className="list-group-item student-header-row hidden-sm-down">
                   <div className="row">
-                    <div className="col-md-6">
-                      <span className="student-name">
-                        <strong>Name</strong>
-                      </span>
+                    <div className="col-md-10 col-xs-8">
+                      <div className="row">
+                        <div className="col-md-6">Name</div>
+                        <div className="col-md-4">Awards</div>
+                      </div>
                     </div>
-                    <div className="col-md-4">Awards</div>
                   </div>
                 </li>
                 {filteredStudents
