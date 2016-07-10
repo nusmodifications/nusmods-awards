@@ -13,7 +13,7 @@ export default class Pagination extends Component {
     if (this.props.currentPageSize) {
       currentEnd = Math.min((this.props.currentPage - 1) * this.props.pageSize + this.props.currentPageSize, this.props.totalSize);
     }
-    console.log(this.props.currentPage, totalPages);
+
     return (
       <div className="btn-group" role="group" aria-label="Pagination">
         <a className={classnames('btn btn-sm btn-secondary-outline', {

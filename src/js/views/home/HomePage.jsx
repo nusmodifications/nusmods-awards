@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 
 import Pagination from 'components/Pagination';
+import AwardLabel from 'components/AwardLabel';
 
 const combinedData = require('json!data/Aggregated.json').data;
 const PAGE_SIZE = 10;
@@ -99,7 +100,7 @@ export default class HomePage extends Component {
                           <div className="col-md-4">{student.Awards.map((award, i) => {
                             return (
                               <span key={i}>
-                                <span className="label label-default">{award.Type} {award.AcadYear} Sem {award.Sem}</span>{' '}
+                                <AwardLabel award={award}/>{' '}
                               </span>
                             );
                           })}</div>
