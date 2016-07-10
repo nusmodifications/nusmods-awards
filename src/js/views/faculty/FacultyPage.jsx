@@ -60,6 +60,7 @@ export default class FacultyPage extends Component {
           <div className="row">
             <div className="col-md-8">
               <h3>{faculty}</h3>
+              <br/>
             </div>
             <div className="col-md-4">
               <form onSubmit={this.search.bind(this)}>
@@ -80,10 +81,10 @@ export default class FacultyPage extends Component {
           </div>
           <br/>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-xs-4">
               <p>{filteredStudents.length} results found</p>
             </div>
-            <div className="col-md-6 text-xs-right">
+            <div className="col-xs-8 text-xs-right">
               <Pagination
                 currentPage={currentPage}
                 pageSize={PAGE_SIZE}
@@ -96,7 +97,7 @@ export default class FacultyPage extends Component {
           <div className="row">
             <div className="col-md-12">
               <ul className="list-group">
-                <li className="list-group-item student-header-row">
+                <li className="list-group-item student-header-row hidden-sm-down">
                   <div className="row">
                     <div className="col-md-6">
                       <span className="student-name">
@@ -111,16 +112,20 @@ export default class FacultyPage extends Component {
                   .map((student, i) => {
                     return (
                       <li className={`list-group-item student-row ${student.Faculty}`} key={i}>
-                        <div className="row" key={i}>
-                          <div className="col-md-6">{student.Name}</div>
-                          <div className="col-md-4">{student.Awards.map((award, i) => {
-                            return (
-                              <span key={i}>
-                                <AwardLabel award={award}/>{' '}
-                              </span>
-                            );
-                          })}</div>
-                          <div className="col-md-2 text-xs-right">
+                        <div className="row">
+                          <div className="col-md-10 col-xs-8">
+                            <div className="row">
+                              <div className="col-md-6">{student.Name}</div>
+                              <div className="col-md-6">{student.Awards.map((award, i) => {
+                                return (
+                                  <span key={i}>
+                                    <AwardLabel award={award}/>{' '}
+                                  </span>
+                                );
+                              })}</div>
+                            </div>
+                          </div>
+                          <div className="col-md-2 col-xs-4 text-xs-right">
                             <Link className="btn btn-sm btn-primary" to={`/s/${encodeURIComponent(student.Name)}`}>
                               View
                             </Link>

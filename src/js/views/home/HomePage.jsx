@@ -73,10 +73,10 @@ export default class HomePage extends Component {
         <br/>
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-xs-4">
               <p>{filteredStudents.length} results found</p>
             </div>
-            <div className="col-md-6 text-xs-right">
+            <div className="col-xs-8 text-xs-right">
               {pagination}
             </div>
           </div>
@@ -84,7 +84,7 @@ export default class HomePage extends Component {
           <div className="row">
             <div className="col-md-12">
               <ul className="list-group">
-                <li className="list-group-item student-header-row">
+                <li className="list-group-item student-header-row hidden-sm-down">
                   <div className="row">
                     <div className="col-md-3">Name</div>
                     <div className="col-md-3">Faculty</div>
@@ -97,16 +97,22 @@ export default class HomePage extends Component {
                     return (
                       <li className={`list-group-item student-row ${student.Faculty}`} key={i}>
                         <div className="row">
-                          <div className="col-md-3">{student.Name}</div>
-                          <div className="col-md-3">{student.Faculty}</div>
-                          <div className="col-md-4">{student.Awards.map((award, i) => {
-                            return (
-                              <span key={i}>
-                                <AwardLabel award={award}/>{' '}
-                              </span>
-                            );
-                          })}</div>
-                          <div className="col-md-2 text-xs-right">
+                          <div className="col-md-10 col-xs-8">
+                            <div className="row">
+                              <div className="col-md-4">{student.Name}</div>
+                              <div className="col-md-4">
+                                <span className="text-muted">{student.Faculty}</span>
+                              </div>
+                              <div className="col-md-4">{student.Awards.map((award, i) => {
+                                return (
+                                  <span key={i}>
+                                    <AwardLabel award={award}/>{' '}
+                                  </span>
+                                );
+                              })}</div>
+                            </div>
+                          </div>
+                          <div className="col-md-2 col-xs-4 text-xs-right">
                             <Link className="btn btn-sm btn-primary" to={`/s/${encodeURIComponent(student.Name)}`}>
                               View
                             </Link>
