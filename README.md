@@ -19,6 +19,10 @@ Visit `localhost:8080` in your web browser.
 $ npm run build
 ```
 
+## Data
+
+Data is obtained from [Elitlist](https://github.com/yangshun/elitlist), which scrapes public sources; it's totally legal!
+
 ## License
 
 Copyright (c) 2016 NUSModifications. Licensed under the MIT license.
