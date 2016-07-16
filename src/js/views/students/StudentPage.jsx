@@ -52,7 +52,6 @@ export default class StudentPage extends Component {
                             </p>
                           </div> : null
                         }
-
                       </div>
                     </div>
                   );
@@ -62,11 +61,7 @@ export default class StudentPage extends Component {
             <hr/>
             <div>
               <button className="btn btn-primary" onClick={() => {
-                if(!window.history.back()) {
-                  this.context.router.push({
-                    pathname: `/${studentRecords[0].Faculty.toLowerCase()}`
-                  });                  
-                }
+                this.context.router.goBack();
               }}>Back</button>
             </div>
           </div>
