@@ -62,9 +62,11 @@ export default class StudentPage extends Component {
             <hr/>
             <div>
               <button className="btn btn-primary" onClick={() => {
-                this.context.router.push({
-                  pathname: `/${studentRecords[0].Faculty.toLowerCase()}`
-                });
+                if(!window.history.back()) {
+                  this.context.router.push({
+                    pathname: `/${studentRecords[0].Faculty.toLowerCase()}`
+                  });                  
+                }
               }}>Back</button>
             </div>
           </div>
