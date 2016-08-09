@@ -163,7 +163,7 @@ export default class FacultyPage extends Component {
                       </li>
                     );
                   })}
-                {!filteredStudents.length ? <li className="list-group-item text-center">No results found</li> : null}
+                {!filteredStudents.length ? <li className="list-group-item text-sm-center">No results found</li> : null}
               </ul>
             </div>
           </div>

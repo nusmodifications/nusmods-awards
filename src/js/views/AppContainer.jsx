@@ -24,6 +24,12 @@ export default class AppContainer extends Component {
           </div>
         </div>
         {this.props.children}
+        <hr/>
+        <footer>
+          <div className="container">
+            <p className="text-sm-center">&copy; 2016 NUSModifications. Source on <a href="https://github.com/nusmodifications/nusmods-awards" target="_blank">Github</a></p>
+          </div>
+        </footer>
       </div>
     );
   }
