@@ -27,7 +27,11 @@ export default class AppContainer extends Component {
         <hr/>
         <footer>
           <div className="container">
-            <p className="text-sm-center">&copy; 2016 NUSModifications. Source on <a href="https://github.com/nusmodifications/nusmods-awards" target="_blank">Github</a></p>
+            <p className="text-xs-center">
+              <small>
+                &copy; 2016 NUSModifications. Source on <a href="https://github.com/nusmodifications/nusmods-awards" target="_blank">Github</a>
+              </small>
+            </p>
           </div>
         </footer>
       </div>
